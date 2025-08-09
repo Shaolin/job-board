@@ -64,12 +64,34 @@
             </div>
         @endif
 
-        {{-- Apply Button --}}
-        <div class="pt-6">
-            <a href="{{ $job->apply_link ?? '#' }}"
-               class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition inline-block">
-                Apply Now
-            </a>
-        </div>
+       
+        {{-- apply --}}
+
+        @php
+    $employerEmail = $job->employer->user->email;
+    $subject = urlencode("Application for {$job->title}");
+      @endphp
+
+     <a href="mailto:{{ $employerEmail }}?subject={{ $subject }}" class="btn btn-primary">
+    Apply Now
+       </a>
+
+        {{-- apply end --}}
+        @can('update', $job)
+    {{-- <a href="/'jobs.edit', $job" class="btn btn-primary">Edit Job</a> --}}
+    <a href='{{ route('jobs.edit', $job) }}' class="btn btn-primary">Edit Job</a>
+     @endcan
+
+     {{-- delete --}}
+     @can('update', $job) {{-- Only show if user owns the job --}}
+<form action="{{ route('jobs.destroy', $job) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this job?');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger">Delete Job</button>
+</form>
+@endcan
+
     </div>
 </x-layout>
+
+

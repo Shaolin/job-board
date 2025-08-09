@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IT Placements</title>
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css','resources/js/app.js']) --}}
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 </head>
 <body class="bg-black text-white pb-20">
 
@@ -18,7 +20,7 @@
                 </a>
             </div>
             <div class="space-x-6 font-bold">
-                <a href="#">Jobs</a>
+                <a href="/">Jobs</a>
                 <a href="#">Careers</a>
                 <a href="#">Salaries</a>
                 <a href="#">Companies</a>
@@ -27,6 +29,9 @@
 
             @auth
             <div class="space-x-6 font-bold flex">
+                @if(auth()->user()->employer)
+                <li><a href="{{ route('employer.dashboard') }}">My Dashboard</a></li>
+            @endif
                 <a href="/jobs/create">Post a Job</a>
 
                 <form method="POST" action="/logout">

@@ -67,6 +67,7 @@ class JobController extends Controller
     {
       $attributes =  $request->validate([
             'title' => ['required'],
+            'description' => ['required'],
             'salary' => ['required'],
             'location' => ['required'],
             'schedule' => ['required', Rule::in('Part Time', 'Full Time')],
@@ -101,15 +102,42 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        //
+        $this->authorize('update', $job);
+
+       
+        // return view('jobs.edit', ['job' => $job]);
+        return view('jobs.edit', compact('job'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJobRequest $request, Job $job)
+    public function update(Request $request, Job $job)
     {
-        //
+         // Authorize the user (extra safety even if middleware is applied)
+    $this->authorize('update', $job);
+
+    // Validate incoming data
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'salary' => 'nullable|string|max:255',
+        'location' => 'nullable|string|max:255',
+        'schedule' => 'nullable|string|max:255',
+        'url' => 'nullable|url|max:255',
+        'featured' => 'nullable|boolean',
+    ]);
+
+    // Checkbox handling
+    $validated['featured'] = $request->has('featured');
+
+    // Update the job
+    $job->update($validated);
+
+    // Redirect back to the job page with success message
+    return redirect()
+        ->route('jobs.show', $job)
+        ->with('success', 'Job updated successfully.');
     }
 
     /**
@@ -117,6 +145,14 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        //
+        
+         // Authorization check using JobPolicy
+            $this->authorize('delete', $job);
+            
+
+              $job->delete();
+
+               return redirect()->route('jobs.index')
+                     ->with('success', 'Job listing deleted successfully.');
     }
 }

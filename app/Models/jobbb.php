@@ -28,19 +28,20 @@ class Job extends Model
     }
 
     protected static function boot()
-    {
-        parent::boot();
+{
+    parent::boot();
 
-        static::creating(function ($job) {
-            if (empty($job->slug)) {
-                $job->slug = Str::slug($job->title) . '-' . Str::random(6);
-            }
-        });
-    }
-
-    // Use slug instead of ID in routes
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    static::saving(function ($job) {
+        if (empty($job->slug)) {
+            $job->slug = Str::slug($job->title) . '-' . Str::random(6);
+        }
+    });
 }
+}
+
+
+
+
+
+
+    

@@ -6,6 +6,10 @@
         <x-forms.input label="Title" name="title" placeholder="CEO" />
         <x-forms.input label="Salary" name="salary" placeholder="$75,000 USD" />
         <x-forms.input label="Location" name="location" placeholder="Ogui Road" />
+        {{-- <x-forms.input label="Description" name="description" placeholder="Job Description" /> --}}
+        <x-forms.textarea label="Job Description" name="description"  placeholder="Enter detailed job description" />
+
+        
         
 
         <x-forms.select label="Schedule" name="schedule">
