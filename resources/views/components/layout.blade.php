@@ -15,7 +15,7 @@
         <nav class="flex justify-between items-center py-4 border-b border-white/10">
             <div>
                 <a href="/">
-                    <img src="{{ asset('images/logosv.jpg') }}"   width="30px " alt="">
+                    <img src="{{ asset('images/iint.webp') }}"   width="30px " alt="">
                     
                 </a>
             </div>
@@ -59,6 +59,8 @@
             {{$slot}}
         </main>
     </div>
+
+    <x-footer />
     
 </body>
 </html>

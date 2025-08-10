@@ -28,13 +28,14 @@
                         {{-- Salary --}}
                         {{-- <p class="fw-bold text-primary">₦{{ number_format($job->salary) }}</p> --}}
                         <p class="fw-bold text-primary">
-                            ₦{{ number_format((float) $job->salary) }}
+                            
+                            ₦{{ number_format((int) str_replace([',', '₦', ' '], '', $job->salary)) }}
                         </p>
 
                         {{-- Applicants Count (placeholder) --}}
-                        <span class="badge bg-info text-dark">
+                        {{-- <span class="badge bg-info text-dark">
                             {{ rand(0, 20) }} Applicants
-                        </span>
+                        </span> --}}
                     </div>
 
                     <div class="card-footer d-flex justify-content-between">
