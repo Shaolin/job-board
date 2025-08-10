@@ -17,8 +17,8 @@
             <option>Full Time</option>
             
         </x-forms.select>
-        <x-forms.input label="URL" name="url" placeholder="https://sawo.com.ng/intern-wanted" />
-        <x-forms.checkbox label="Feature (Costs Extra)" name="featured" />
+        <x-forms.input label="URL" name="url" placeholder="https://sawo.com.ng/" />
+        {{-- <x-forms.checkbox label="Feature (Costs Extra)" name="featured" /> --}}
 
         <x-forms.divider />
         
